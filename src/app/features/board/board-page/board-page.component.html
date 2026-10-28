@@ -1,0 +1,9 @@
+<section class="board">
+  @for (column of columns; track column.id) {
+    <app-board-column
+      [column]="column"
+      [tasks]="tasksByStatus()[column.id]"
+      [connectedTo]="connectedIds"
+    />
+  }
+</section>
