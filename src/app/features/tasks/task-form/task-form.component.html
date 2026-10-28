@@ -1,0 +1,72 @@
+<form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <label>
+    Titulo
+    <input type="text" formControlName="title" appAutofocus />
+    @if (form.controls.title.touched && form.controls.title.invalid) {
+      <small>Informe um titulo com pelo menos 3 caracteres.</small>
+    }
+  </label>
+
+  <label>
+    Descricao
+    <textarea rows="4" formControlName="description"></textarea>
+    @if (form.controls.description.touched && form.controls.description.invalid) {
+      <small>Descreva a tarefa com pelo menos 8 caracteres.</small>
+    }
+  </label>
+
+  <div class="grid">
+    <label>
+      Status
+      <select formControlName="status">
+        <option value="todo">A Fazer</option>
+        <option value="in-progress">Em Progresso</option>
+        <option value="done">Concluido</option>
+      </select>
+    </label>
+
+    <label>
+      Prioridade
+      <select formControlName="priority">
+        @for (priority of priorities; track priority) {
+          <option [value]="priority">{{ priority }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <div class="grid">
+    <label>
+      Responsavel
+      <select formControlName="assigneeId">
+        <option [ngValue]="null">Nao atribuido</option>
+        @for (user of users(); track user.id) {
+          <option [ngValue]="user.id">{{ user.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Prazo
+      <input type="date" formControlName="dueDate" />
+    </label>
+  </div>
+
+  <fieldset>
+    <legend>Labels</legend>
+    <div class="chips">
+      @for (label of labels; track label) {
+        <button type="button" [class.active]="isSelected(label)" (click)="toggleLabel(label)">
+          {{ label }}
+        </button>
+      }
+    </div>
+  </fieldset>
+
+  <footer>
+    <button type="button" class="secondary" (click)="modalService.close()">Cancelar</button>
+    <button type="submit" [disabled]="saving">
+      {{ saving ? 'Salvando...' : modal().mode === 'edit' ? 'Salvar alteracoes' : 'Criar card' }}
+    </button>
+  </footer>
+</form>
