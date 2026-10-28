@@ -1,0 +1,49 @@
+<aside class="sidebar">
+  <section>
+    <h2>Fluxo</h2>
+    <ul class="stats">
+      <li><span>Total</span><strong>{{ counts().total }}</strong></li>
+      <li><span>A fazer</span><strong>{{ counts().todo }}</strong></li>
+      <li><span>Em progresso</span><strong>{{ counts().inProgress }}</strong></li>
+      <li><span>Concluido</span><strong>{{ counts().done }}</strong></li>
+    </ul>
+  </section>
+
+  <section>
+    <header>
+      <h2>Filtros</h2>
+      @if (hasFilters) {
+        <button type="button" (click)="clear()">Limpar</button>
+      }
+    </header>
+
+    <label>
+      Prioridade
+      <select [ngModel]="filters().priority" (ngModelChange)="setPriority($event)">
+        @for (priority of priorities; track priority) {
+          <option [value]="priority">{{ priority === 'all' ? 'Todas' : priority }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Responsavel
+      <select [ngModel]="filters().assigneeId" (ngModelChange)="setAssignee($event)">
+        <option value="all">Todos</option>
+        <option value="unassigned">Nao atribuido</option>
+        @for (user of users(); track user.id) {
+          <option [value]="user.id">{{ user.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Label
+      <select [ngModel]="filters().label" (ngModelChange)="setLabel($event)">
+        @for (label of labels; track label) {
+          <option [value]="label">{{ label === 'all' ? 'Todas' : label }}</option>
+        }
+      </select>
+    </label>
+  </section>
+</aside>
