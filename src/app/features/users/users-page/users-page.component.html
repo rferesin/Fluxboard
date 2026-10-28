@@ -1,0 +1,27 @@
+<section class="users">
+  <header>
+    <h1>Membros do time</h1>
+    <p>Distribuicao de cards por pessoa. Os dados vem do interceptor fake e ficam no estado do TaskService.</p>
+  </header>
+
+  <div class="grid">
+    @for (member of members(); track member.user.id) {
+      <article>
+        <div class="who">
+          <app-avatar [user]="member.user" size="lg" />
+          <div>
+            <h2>{{ member.user.name }}</h2>
+            <p>{{ member.user.email }}</p>
+            <span>{{ member.user.role }}</span>
+          </div>
+        </div>
+        <ul>
+          <li><em>Total</em><strong>{{ member.total }}</strong></li>
+          <li><em>A fazer</em><strong>{{ member.todo }}</strong></li>
+          <li><em>Em progresso</em><strong>{{ member.inProgress }}</strong></li>
+          <li><em>Concluido</em><strong>{{ member.done }}</strong></li>
+        </ul>
+      </article>
+    }
+  </div>
+</section>
