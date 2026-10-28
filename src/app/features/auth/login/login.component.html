@@ -1,0 +1,56 @@
+<main class="login">
+  <section class="panel">
+    <div class="brand">
+      <span class="mark">FB</span>
+      <div>
+        <p class="eyebrow">Fluxboard</p>
+        <h1>Organize o fluxo do time</h1>
+      </div>
+    </div>
+
+    <p class="lead">
+      Login fake com interceptor HTTP. Escolha uma conta de demonstracao ou use as credenciais abaixo.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label>
+        Email
+        <input type="email" formControlName="email" appAutofocus autocomplete="username" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <small>Informe um email valido.</small>
+        }
+      </label>
+
+      <label>
+        Senha
+        <input type="password" formControlName="password" autocomplete="current-password" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <small>Minimo de 4 caracteres.</small>
+        }
+      </label>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <button type="submit" [disabled]="submitting">
+        {{ submitting ? 'Entrando...' : 'Entrar no board' }}
+      </button>
+    </form>
+  </section>
+
+  <aside class="accounts">
+    <h2>Contas de demo</h2>
+    <ul>
+      @for (account of accounts; track account.email) {
+        <li>
+          <button type="button" (click)="fill(account.email, account.password)">
+            <strong>{{ account.name }}</strong>
+            <span>{{ account.email }}</span>
+            <em>{{ account.password }}</em>
+          </button>
+        </li>
+      }
+    </ul>
+  </aside>
+</main>
