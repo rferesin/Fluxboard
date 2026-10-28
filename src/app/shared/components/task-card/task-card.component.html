@@ -1,0 +1,27 @@
+<article class="card" [attr.data-priority]="task.priority">
+  <header class="card__top">
+    <span class="card__priority" [attr.data-priority]="task.priority">
+      {{ task.priority | priorityLabel }}
+    </span>
+    <div class="card__actions">
+      <button type="button" class="ghost" (click)="edit.emit(task)" title="Editar">Editar</button>
+      <button type="button" class="ghost ghost--danger" (click)="remove.emit(task)" title="Excluir">Excluir</button>
+    </div>
+  </header>
+
+  <h3 class="card__title">{{ task.title }}</h3>
+  <p class="card__desc">{{ task.description }}</p>
+
+  <ul class="card__labels">
+    @for (label of task.labels; track label) {
+      <li [attr.data-label]="label">{{ label }}</li>
+    }
+  </ul>
+
+  <footer class="card__foot">
+    <app-avatar [user]="assignee" size="sm" />
+    <span class="card__due" [class.card__due--late]="isOverdue">
+      {{ task.dueDate | relativeDate }}
+    </span>
+  </footer>
+</article>

@@ -1,0 +1,9 @@
+<div class="overlay" (click)="closed.emit()">
+  <section class="dialog" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+    <header>
+      <h2>{{ title }}</h2>
+      <button type="button" class="close" (click)="closed.emit()" aria-label="Fechar">x</button>
+    </header>
+    <ng-content />
+  </section>
+</div>

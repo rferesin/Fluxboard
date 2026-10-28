@@ -1,0 +1,33 @@
+<header class="header">
+  <div class="brand">
+    <span class="mark">FB</span>
+    <div>
+      <strong>Fluxboard</strong>
+      <small>{{ counts().total }} cards no fluxo</small>
+    </div>
+  </div>
+
+  <nav>
+    <a routerLink="/board" routerLinkActive="active">Board</a>
+    <a routerLink="/users" routerLinkActive="active">Membros</a>
+  </nav>
+
+  <label class="search">
+    <input
+      type="search"
+      placeholder="Pesquisar cards..."
+      [value]="filters().search"
+      (input)="onSearch($event)"
+    />
+  </label>
+
+  <button type="button" class="cta" (click)="create()">Novo card</button>
+
+  <div class="session">
+    <app-avatar [user]="user()" />
+    <div>
+      <strong>{{ user()?.name }}</strong>
+      <button type="button" (click)="logout()">Sair</button>
+    </div>
+  </div>
+</header>
