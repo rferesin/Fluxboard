@@ -1,0 +1,29 @@
+<section class="column" [style.--accent]="column.accent">
+  <header>
+    <h2>{{ column.title }}</h2>
+    <span>{{ tasks.length }}</span>
+  </header>
+
+  <div
+    class="list"
+    cdkDropList
+    [id]="column.id"
+    [cdkDropListData]="tasks"
+    [cdkDropListConnectedTo]="otherLists"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (task of tasks; track task.id) {
+      <div class="item" cdkDrag [cdkDragData]="task">
+        <button type="button" class="handle" cdkDragHandle aria-label="Arrastar card">::</button>
+        <app-task-card
+          [task]="task"
+          [assignee]="assigneeOf(task)"
+          (edit)="edit($event)"
+          (remove)="remove($event)"
+        />
+      </div>
+    } @empty {
+      <p class="empty">Nenhum card nesta coluna.</p>
+    }
+  </div>
+</section>

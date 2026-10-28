@@ -1,0 +1,9 @@
+<span
+  class="avatar"
+  [class.avatar--sm]="size === 'sm'"
+  [class.avatar--lg]="size === 'lg'"
+  [style.background]="color"
+  [attr.title]="user?.name ?? 'Nao atribuido'"
+>
+  {{ initials }}
+</span>

@@ -1,0 +1,18 @@
+<div class="shell">
+  <app-header />
+  <div class="body">
+    <app-sidebar />
+    <main>
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+@if (modal().open) {
+  <app-modal
+    [title]="modal().mode === 'edit' ? 'Editar card' : 'Novo card'"
+    (closed)="modalService.close()"
+  >
+    <app-task-form />
+  </app-modal>
+}
